@@ -1,0 +1,12 @@
+
+Laskimeen sivuja, joissa on sama ongelma. Voi laskea vai kaksi numeroa kerralla. Ohjelma "p‰‰llekirjoittaa" edelliseen numeroon. 
+
+
+http://stackoverflow.com/questions/25011168/c-sharp-simple-calculator
+
+
+
+XAML visualisointiin sivuja
+
+http://www.codescratcher.com/wpf/remove-default-mouse-over-effect-on-wpf-buttons/
+

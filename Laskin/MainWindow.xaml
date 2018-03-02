@@ -1,0 +1,116 @@
+﻿<Window x:Class="Calculator.MainWindow"
+
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator"
+        mc:Ignorable="d"
+        Title="Laskin" Height="313.16" Width="422.525">
+    <Window.Resources>
+        <Style x:Key="DisableDefaultButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="1" BorderBrush="White" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DisableDefaultButtonBack" TargetType="Button" >
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="1" BorderBrush="White" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-2.5,0,0" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Background="#2C3539" Margin="0,0,-7,-8">
+        <Menu Margin="15,10,24,251"  >
+            <MenuItem Header="_File">
+                <MenuItem Header="_Show" >
+                    <MenuItem Header="_Saved Calculations" />
+                </MenuItem>
+
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+
+            </MenuItem>
+            <MenuItem Header="_Information" >
+                <MenuItem Header="About" />
+
+            </MenuItem>
+        </Menu>
+        <Grid Margin="-3,0,13,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="283*"/>
+                <ColumnDefinition Width="129*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="one" Content="1" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="one_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}" />
+            <Button x:Name="two" Content="2" HorizontalAlignment="Left" Margin="50,110,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="two_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="three" Content="3" HorizontalAlignment="Left" Margin="90,110,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="three_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="four" Content="4" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Width="35" Height ="35" Click="four_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="five" Content="5" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Width="35" Height ="35" Click="five_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="six" Content="6" HorizontalAlignment="Left" Margin="90,150,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="six_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="seven" Content="7" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="seven_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="eight" Content="8" HorizontalAlignment="Left" Margin="50,191,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="eight_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="nine" Content="9" HorizontalAlignment="Left" Margin="90,190,0,0" VerticalAlignment="Top" Width="35" Height ="35" Click="nine_Click"  Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="zero" Content="0" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="75" Height="35" Click="zero_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+
+            <Button x:Name="dot" Content="," HorizontalAlignment="Left" Margin="90,230,0,0" VerticalAlignment="Top" Width="35" Height ="35" Click="dot_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="equal" Content="=" HorizontalAlignment="Left" Margin="170,191,0,0" VerticalAlignment="Top" Width="35" Height="74" Click="equal_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="plus" Content="+" HorizontalAlignment="Left" Margin="130,110,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="plus_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="minus" Content="-" HorizontalAlignment="Left" Margin="130,150,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="minus_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="times" Content="*" HorizontalAlignment="Left" Margin="130,190,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="times_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="division" Content="/" HorizontalAlignment="Left" Margin="130,230,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="division_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <Button x:Name="empty" Content="C" HorizontalAlignment="Left" Margin="170,111,0,0" VerticalAlignment="Top" Width="35" Height="35" Click="empty_Click" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}"/>
+            <TextBox x:Name="TextBox" Foreground="#FFA500" Background="#2C3539" FontSize="17" HorizontalAlignment="Left" Height="56" Margin="18,40,0,0" Text="0" VerticalAlignment="Top" Width="375" TextAlignment="Right" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2"/>
+
+
+            <Button x:Name="back" Content="←" HorizontalAlignment="Left" Margin="170,151,0,0" VerticalAlignment="Top" Width="35" Height="35" 
+                        FontSize="25" Foreground="#FFA500" Background="#2C3539" Style="{StaticResource DisableDefaultButtonBack}" Click="back_Click"/>
+            <Button x:Name="sqrt" Content="√" HorizontalAlignment="Left" Margin="221,111,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}" Click="sqrt_Click"/>
+            <Button x:Name="bracketOpen" Content="(" HorizontalAlignment="Left" Margin="261,111,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}" Click="bracketOpen_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="bracketClose" Content=")" HorizontalAlignment="Left" Margin="18,111,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}" Click="bracketClose_Click" Grid.Column="1" />
+            <Button x:Name="Pi" Content="π" HorizontalAlignment="Left" Margin="221,151,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}" Click="pi_Click"/>
+            <Button x:Name="sin" Content="Sin" HorizontalAlignment="Left" Margin="261,151,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="14" Style="{StaticResource DisableDefaultButton}" Click="sin_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="sin1" Content="Sin-1" HorizontalAlignment="Left" Margin="18,151,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="12" Style="{StaticResource DisableDefaultButton}" Click="sin1_Click" Grid.Column="1"/>
+            <Button x:Name="cos" Content="Cos" HorizontalAlignment="Left" Margin="261,191,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="14" Style="{StaticResource DisableDefaultButton}" Click="cos_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="cos1" Content="Cos-1" HorizontalAlignment="Left" Margin="18,191,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="12" Style="{StaticResource DisableDefaultButton}" Click="cos1_Click" Grid.Column="1"/>
+            <Button x:Name="tan" Content="Tan" HorizontalAlignment="Left" Margin="261,230,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="14" Style="{StaticResource DisableDefaultButton}" Click="tan_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="tan1" Content="Tan-1" HorizontalAlignment="Left" Margin="18,230,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="12" Style="{StaticResource DisableDefaultButton}" Click="tan1_Click" Grid.Column="1"/>
+            <Button x:Name="x2" Content="X^2" HorizontalAlignment="Left" Margin="221,191,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="14" Style="{StaticResource DisableDefaultButton}" Click="x2_Click"/>
+            <Button x:Name="xy" Content="X^y" HorizontalAlignment="Left" Margin="221,230,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="14" Style="{StaticResource DisableDefaultButton}" Click="xy_Click"/>
+            <Button x:Name="nFactorial" Content="n!" HorizontalAlignment="Left" Margin="58,111,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="17" Style="{StaticResource DisableDefaultButton}" Click="nFactorial_Click" Grid.Column="1"/>
+            <Button x:Name="log" Content="Log" HorizontalAlignment="Left" Margin="58,151,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="14" Style="{StaticResource DisableDefaultButton}" Click="log_Click" Grid.Column="1"/>
+            <Button x:Name="yRoot" Content="Yroot" HorizontalAlignment="Left" Margin="58,191,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="12" Style="{StaticResource DisableDefaultButton}" Click="yRoot_Click" Grid.Column="1"/>
+            <Button x:Name="cubeRoot" Content="Curoot" HorizontalAlignment="Left" Margin="58,230,0,0" VerticalAlignment="Top" Width="35" Height="35" Foreground="#FFA500" Background="#2C3539" FontSize="9" Style="{StaticResource DisableDefaultButton}" Click="cubeRoot_Click" Grid.Column="1"/>
+            <TextBox x:Name="equation" HorizontalAlignment="Left" Margin="18,40,0,0" Width="375" Height="27" FontSize="17" Foreground="#FFA500" Background="#2C3539" VerticalAlignment="Top" TextAlignment="Right" VerticalContentAlignment="Bottom" BorderThickness="1,1,1,0" Grid.ColumnSpan="2"/>
+
+        </Grid>
+    </Grid>
+</Window>

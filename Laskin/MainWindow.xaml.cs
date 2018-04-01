@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Calculator
 {
@@ -21,15 +22,39 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        string operand1 = string.Empty;
-        string operand2 = string.Empty;
+        string operand1, operand2  = string.Empty;
         double opr1, opr2, result, value;
         string operation;
         int resultCounter, bracketCounter; // Both are 0, no need = 0;
-        
+
         public MainWindow()
         {
             InitializeComponent();
+
+            string calculationDirectory = "C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations";
+            DirectoryInfo direInfo = new DirectoryInfo(calculationDirectory);
+
+            if (!direInfo.Exists)
+            {
+                direInfo.Create();
+            }
+
+            string calculationPath = "C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations\\Calculations.txt";
+            FileInfo fileInfo = new FileInfo(calculationPath);
+
+            if (!fileInfo.Exists)
+            {
+                fileInfo.Create();
+            }
+
+            StreamWriter sw = File.AppendText("C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations\\Calculations.txt");
+
+            if (fileInfo.Length == 0) // If file is empty execute. 
+            {
+                sw.WriteLine("Calculations \t" + "\t" + "Results \t" + "\t" + "Date and time");
+                sw.Flush();
+                sw.Close();
+            }
         }
  #region "Degree and Radian conversion functions for sin,cos,tan
         private double degreeToRadian(double opr1)
@@ -67,7 +92,7 @@ namespace Calculator
                  equation.Clear();     
              }
                 TextBox.Text += "1";
-               // equation.Text += "1";
+                equation.Text += "1";
           }
          
              private void two_Click(object sender, RoutedEventArgs e)
@@ -78,7 +103,7 @@ namespace Calculator
                      equation.Clear();                  
                  }
                      TextBox.Text += "2";
-                  // equation.Text += "2";
+                     equation.Text += "2";
              }
                
                 private void three_Click(object sender, RoutedEventArgs e)
@@ -89,7 +114,7 @@ namespace Calculator
                         equation.Clear();
                     }
                         TextBox.Text += "3";
-                     // equation.Text += "3";
+                        equation.Text += "3";
                 }
           
                    private void four_Click(object sender, RoutedEventArgs e)
@@ -100,7 +125,7 @@ namespace Calculator
                             equation.Clear();
                         }
                            TextBox.Text += "4";
-                        // equation.Text += "4";
+                           equation.Text += "4";
                    }
 
                       private void five_Click(object sender, RoutedEventArgs e)
@@ -111,7 +136,7 @@ namespace Calculator
                               equation.Clear();
                           }
                               TextBox.Text += "5";
-                           // equation.Text += "5";
+                              equation.Text += "5";
                       }
 
                          private void six_Click(object sender, RoutedEventArgs e)
@@ -122,7 +147,7 @@ namespace Calculator
                                  equation.Clear();
                              }                                                    
                                  TextBox.Text += "6";
-                              // equation.Text += "6";
+                                equation.Text += "6";
                          }
 
                             private void seven_Click(object sender, RoutedEventArgs e)
@@ -133,7 +158,7 @@ namespace Calculator
                                     equation.Clear();
                                 }
                                     TextBox.Text += "7";
-                                 // equation.Text += "7";
+                                    equation.Text += "7";
                             }
 
                                private void eight_Click(object sender, RoutedEventArgs e)
@@ -144,7 +169,7 @@ namespace Calculator
                                         equation.Clear();
                                    }
                                         TextBox.Text += "8";
-                                     // equation.Text += "8";
+                                        equation.Text += "8";
                                }
 
                                   private void nine_Click(object sender, RoutedEventArgs e)
@@ -155,7 +180,7 @@ namespace Calculator
                                           equation.Clear();
                                       }
                                           TextBox.Text += "9";
-                                       // equation.Text += "9";
+                                          equation.Text += "9";
                                   }
 
                                      private void zero_Click(object sender, RoutedEventArgs e)
@@ -163,7 +188,7 @@ namespace Calculator
                                          if (!TextBox.Text.Contains("0") || TextBox.Text.Length >= 2) // Last statement 0,000... first statement 1000  cant click 0 first, need to click , or someother number like 1.
                                          {
                                             TextBox.Text += "0";
-                                           // equation.Text += "0";
+                                            equation.Text += "0";
                                          }                                
                                      }
 
@@ -172,16 +197,17 @@ namespace Calculator
                                         if (!TextBox.Text.Contains(",")) // If textbox not contains dot, textbox.text = textbox.text + ",", so dot is added there. But if dot already exist, this if-statement will not be executed! So you can press dot button only once! and it will add only one dot
                                         { // NOTICE! parenthesis, or equation.content += "," does not work
                                             TextBox.Text += ",";
-                                          //  equation.Text += ",";
+                                            equation.Text += ",";
                                         }                                                 
-                                         //   if (equation.Text.Length == 1)
+                                            if (equation.Text.Length == 1)
                                             {
-                                          //      equation.Text = "0" + ",";
+                                                equation.Text = "0" + ",";
                                             }              
                                   }
 
                                     private void equal_Click(object sender, RoutedEventArgs e)
                                     {
+                                    
                                         operand2 = TextBox.Text; 
                                         double opr1, opr2;
                                         // Converts string to double so operands 1,2 are now double
@@ -246,8 +272,6 @@ namespace Calculator
                                                 break;
                                         }
                                             TextBox.Text = result.ToString();        
-                                            result = 0; 
-                                            equation.Text = string.Empty;
                                             resultCounter = 0;
                                             bracketCounter = 0;
                                             operation = " "; // In division calculations operation must reset. Example: 30/10 = 3 sqrt = "Cannot be divided by zero!", but gives right answer.
@@ -257,15 +281,34 @@ namespace Calculator
                                             MessageBox.Show("Something went wrong during calculating! More Details: " +
                                                              ex.Message);
                                         }
-                                    }
-       
+                                        
+                                         StreamWriter strW = File.AppendText("C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations\\Calculations.txt");
+                                         if (equation.Text.Length <= 0)
+                                         {
+                                            equation.Text = "0";
+                                            strW.WriteLine(equation.Text + "\t" + "\t" + "\t" + result + "\t" + "\t" + "\t" + DateTime.Now);
+                                            strW.Flush();
+                                            strW.Close();
+                                         }
+
+                                         else
+                                         {
+                                            strW.WriteLine(equation.Text + "\t" + "\t" + "\t" + result + "\t" + "\t" + "\t" + DateTime.Now);
+                                            strW.Flush();
+                                            strW.Close();
+                                         }
+
+                                         result = 0;
+                                         equation.Text = string.Empty;
+                            }
+
                             private void plus_Click(object sender, RoutedEventArgs e)
                             {
                                 // string operand1 = (string)Convert.ChangeType(result, typeof(string)); // laskujärjestystä reverse polish notation
                                 operand1 = TextBox.Text;
                                 double.TryParse(operand1, out opr1);               
                                 operation = "+";
-                                equation.Text += TextBox.Text + " " + "+" + " ";                
+                                equation.Text += " " + "+" + " ";                
                                 TextBox.Text = string.Empty;  
                                 result += opr1;                              
                             }
@@ -281,11 +324,11 @@ namespace Calculator
 
                             if (resultCounter == 0)
                             {        
-                               result = opr1;
+                               result = opr1;            
                             }        
                             else
                             {
-                                result -= opr1; 
+                                result -= opr1;
                             }
                             resultCounter++;                    
                         }
@@ -436,12 +479,15 @@ namespace Calculator
                                         return i + "-" + (long) numerator + "/" + (long)denominator;
                                         }
                                         */
-
+                                        
                                     double fact;
                                     operand1 = TextBox.Text;
                                     double.TryParse(operand1, out opr1);
 
                                     TextBox.Text = string.Empty;
+                                    double intePart = Math.Truncate(opr1);
+                                    double fractional = opr1 - intePart;
+
                                     fact = opr1;
            
                                    // for (double i = 1; i < opr1; i++) // 4! = 1*2*3*4

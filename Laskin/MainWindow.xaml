@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="Laskin" Height="313.16" Width="422.525">
+        Title="Calculator" Height="313.16" Width="422.525">
     <Window.Resources>
         <Style x:Key="DisableDefaultButton" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -50,14 +50,15 @@
 
     <Grid Background="#2C3539" Margin="0,0,-7,-8">
         <Menu Margin="15,10,24,251"  >
-            <MenuItem Header="_File">
-                <MenuItem Header="_Show" >
-                    <MenuItem Header="_Saved Calculations" />
+            <MenuItem Header="Show">
+                <MenuItem Header="Calculations" >
+                    <MenuItem Header="History" Click="History_Click" />
+                    <MenuItem Header="Copy" Click="Copy_Click" />
+                    <MenuItem Header="Paste" Click="Paste_Click" />
+                    <MenuItem Header="Clear" Click="Clear_Click" />
                 </MenuItem>
-
-                <MenuItem Header="_Save" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" Click="Exit_Click" />
 
             </MenuItem>
             <MenuItem Header="_Information" >

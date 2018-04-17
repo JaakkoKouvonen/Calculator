@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Diagnostics;
 
 namespace Calculator
 {
@@ -26,29 +27,25 @@ namespace Calculator
         double opr1, opr2, result, value;
         string operation;
         int resultCounter, bracketCounter; // Both are 0, no need = 0;
+        string calculationDirectory = "C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations";
+        string calculationPath = "C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations\\Calculations.txt";
 
-        public MainWindow()
+        public MainWindow() 
         {
-            InitializeComponent();
-
-            string calculationDirectory = "C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations";
+            InitializeComponent();   
             DirectoryInfo direInfo = new DirectoryInfo(calculationDirectory);
-
             if (!direInfo.Exists)
             {
-                direInfo.Create();
+                direInfo.Create();      
             }
-
-            string calculationPath = "C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations\\Calculations.txt";
+            
             FileInfo fileInfo = new FileInfo(calculationPath);
-
             if (!fileInfo.Exists)
             {
                 fileInfo.Create();
             }
 
             StreamWriter sw = File.AppendText("C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations\\Calculations.txt");
-
             if (fileInfo.Length == 0) // If file is empty execute. 
             {
                 sw.WriteLine("Calculations \t" + "\t" + "Results \t" + "\t" + "Date and time");
@@ -56,7 +53,50 @@ namespace Calculator
                 sw.Close();
             }
         }
- #region "Degree and Radian conversion functions for sin,cos,tan
+
+        private void SetToClipboard(object text)
+        {
+            Clipboard.SetText(TextBox.Text); // Stores Textbox.Text into Clipboard. User does not need to use Ctrl+C. This already does it. User can paste directly Ctrl+V
+        }
+
+#region "MenuItem buttons       
+        private void History_Click(object sender, RoutedEventArgs e) // OpenText() = opens file for the program, so program can use file data. Does not "open it/show it" for the user. 
+        {
+            FileInfo fileInfo = new FileInfo(calculationPath);        
+            try
+            {
+                Process.Start(calculationPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("File does not exists!" + " " + ex.Message);
+            } 
+        }
+
+        private void Copy_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TextBox.Text);
+        }
+
+        private void Paste_Click(object sender, RoutedEventArgs e) // Returns, paste latest Clipboard data. 
+        {
+            TextBox.Text = Clipboard.GetText();
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {        
+            StreamWriter sw = File.CreateText("C:\\Users\\Jasu\\Documents\\Visual Studio 2015\\Projects\\Laskin\\Calculations\\Calculations.txt");
+            sw.WriteLine("Calculations \t" + "\t" + "Results \t" + "\t" + "Date and time");
+            sw.Flush();
+            sw.Close();
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+#endregion
+        #region "Degree and Radian conversion functions for sin,cos,tan
         private double degreeToRadian(double opr1)
             {
                 result = opr1 * (Math.PI / 180);
@@ -83,27 +123,27 @@ namespace Calculator
                             return result;
                         }
 #endregion
-
         private void one_Click(object sender, RoutedEventArgs e)
-          {
-             if (TextBox.Text == "0")
-             {
-                 TextBox.Clear();
-                 equation.Clear();     
-             }
+        {
+            if (TextBox.Text == "0")
+            {
+                TextBox.Clear();
+               // equation.Clear();     
+            }
                 TextBox.Text += "1";
                 equation.Text += "1";
-          }
-         
+                SetToClipboard(TextBox.Text);
+            }      
              private void two_Click(object sender, RoutedEventArgs e)
              {
                  if (TextBox.Text == "0")
                  {          
                      TextBox.Clear();
-                     equation.Clear();                  
+                    // equation.Clear();                  
                  }
                      TextBox.Text += "2";
                      equation.Text += "2";
+                     SetToClipboard(TextBox.Text);
              }
                
                 private void three_Click(object sender, RoutedEventArgs e)
@@ -111,10 +151,11 @@ namespace Calculator
                     if (TextBox.Text == "0")
                     {
                         TextBox.Clear();
-                        equation.Clear();
+                      //  equation.Clear();
                     }
                         TextBox.Text += "3";
                         equation.Text += "3";
+                        SetToClipboard(TextBox.Text);
                 }
           
                    private void four_Click(object sender, RoutedEventArgs e)
@@ -122,10 +163,11 @@ namespace Calculator
                        if (TextBox.Text == "0")
                        {
                            TextBox.Clear();
-                            equation.Clear();
+                         //   equation.Clear();
                         }
                            TextBox.Text += "4";
                            equation.Text += "4";
+                           SetToClipboard(TextBox.Text);
                    }
 
                       private void five_Click(object sender, RoutedEventArgs e)
@@ -133,10 +175,11 @@ namespace Calculator
                           if (TextBox.Text == "0")
                           {
                               TextBox.Clear();
-                              equation.Clear();
+                          //    equation.Clear();
                           }
                               TextBox.Text += "5";
                               equation.Text += "5";
+                              SetToClipboard(TextBox.Text);
                       }
 
                          private void six_Click(object sender, RoutedEventArgs e)
@@ -144,10 +187,11 @@ namespace Calculator
                              if (TextBox.Text == "0")
                              {
                                  TextBox.Clear();
-                                 equation.Clear();
+                              //   equation.Clear();
                              }                                                    
-                                 TextBox.Text += "6";
+                                TextBox.Text += "6";
                                 equation.Text += "6";
+                                SetToClipboard(TextBox.Text);
                          }
 
                             private void seven_Click(object sender, RoutedEventArgs e)
@@ -155,21 +199,23 @@ namespace Calculator
                                 if (TextBox.Text == "0")
                                 {
                                     TextBox.Clear();
-                                    equation.Clear();
+                                //    equation.Clear();
                                 }
                                     TextBox.Text += "7";
                                     equation.Text += "7";
-                            }
+                                    SetToClipboard(TextBox.Text);
+                             }
 
                                private void eight_Click(object sender, RoutedEventArgs e)
                                {
                                    if (TextBox.Text == "0")
                                    {
                                         TextBox.Clear();
-                                        equation.Clear();
+                                   //     equation.Clear();
                                    }
                                         TextBox.Text += "8";
                                         equation.Text += "8";
+                                        SetToClipboard(TextBox.Text);
                                }
 
                                   private void nine_Click(object sender, RoutedEventArgs e)
@@ -177,10 +223,11 @@ namespace Calculator
                                       if (TextBox.Text == "0")
                                       {
                                           TextBox.Clear();
-                                          equation.Clear();
+                                     //     equation.Clear();
                                       }
                                           TextBox.Text += "9";
                                           equation.Text += "9";
+                                          SetToClipboard(TextBox.Text);
                                   }
 
                                      private void zero_Click(object sender, RoutedEventArgs e)
@@ -189,6 +236,7 @@ namespace Calculator
                                          {
                                             TextBox.Text += "0";
                                             equation.Text += "0";
+                                            SetToClipboard(TextBox.Text);
                                          }                                
                                      }
 
@@ -207,7 +255,6 @@ namespace Calculator
 
                                     private void equal_Click(object sender, RoutedEventArgs e)
                                     {
-                                    
                                         operand2 = TextBox.Text; 
                                         double opr1, opr2;
                                         // Converts string to double so operands 1,2 are now double
@@ -271,11 +318,11 @@ namespace Calculator
                                                 result = Math.Pow(opr1, 1 / opr2); // Ex. 3^1/6 = 1,200
                                                 break;
                                         }
-                                            TextBox.Text = result.ToString();        
+                                            TextBox.Text = result.ToString();   
                                             resultCounter = 0;
                                             bracketCounter = 0;
                                             operation = " "; // In division calculations operation must reset. Example: 30/10 = 3 sqrt = "Cannot be divided by zero!", but gives right answer.
-                                     }
+                                        }
                                         catch (Exception ex) // If errors occurs, when "=" button is pressed. Output errormessage.
                                         { 
                                             MessageBox.Show("Something went wrong during calculating! More Details: " +
@@ -297,10 +344,10 @@ namespace Calculator
                                             strW.Flush();
                                             strW.Close();
                                          }
-
                                          result = 0;
                                          equation.Text = string.Empty;
-                            }
+                                         SetToClipboard(TextBox.Text);
+                                   }
 
                             private void plus_Click(object sender, RoutedEventArgs e)
                             {
@@ -369,24 +416,21 @@ namespace Calculator
                         }
                  }
 
-             private void back_Click(object sender, RoutedEventArgs e) // Ei toimi, koska equationit poistettu. 
+             private void back_Click(object sender, RoutedEventArgs e) 
              {
                 if (TextBox.Text.Length > 0 && equation.Text.Length > 0) // Crashes if there is no statement equation.text.length > 0. 
                 {
                     TextBox.Text = TextBox.Text.Remove(TextBox.Text.Length - 1, 1); 
                     equation.Text = equation.Text.Remove(equation.Text.Length - 1, 1);
-                }
-                
+                }        
                     if (TextBox.Text.Length == 0 )
                     {
                       TextBox.Text = "0";
-                    }
-                  
+                    }        
                         if (equation.Text.Length >= 1) // 1+2+3 --> 1+3+2 = 6 Toimii 
                         {
                              operand1 = equation.Text;
                         }
-
                             if (equation.Text.Length == 0)
                             {
                                 result = 0;
@@ -604,4 +648,3 @@ namespace Calculator
         }
     }
 }
-
